@@ -26,13 +26,38 @@ const db = mysql.createConnection({
     console.log('Connected to the election database.')
 );
 
-
-
 //query database to test the connection
-db.query(`SELECT * FROM candidates`, (err, rows) => {
-    console.log(rows);
-});
+// db.query(`SELECT * FROM candidates`, (err, rows) => {
+//     console.log(rows);
+// });
 
+// get a single candidate
+// db.query(`SELECT * FROM candidates WHERE id = 1`, (err, row) => {
+//     if (err) {
+//         console.log(err);
+//     }
+//     console.log(row);
+// });
+
+//Delete a candidate
+// db.query(`DELETE FROM candidates WHERE id = ?`, 1, (err, result) => {
+//     if (err) {
+//         console.log(err);
+//     }
+//     console.log(result);
+// });
+
+//Create query for create operation
+//create a candidate
+const sql = `INSERT INTO candidates (id, first_name, last_name, industry_connected) VALUES (?,?,?,?)`;
+const params = [1, 'Ronald', 'Firbank', 1];
+
+db.query(sql, params, (err, result) => {
+    if (err) {
+        console.log(err);
+    }
+    console.log(result);
+});
 
 // add route to handle user request at the end before add.listen
 //Default response for any other request (not found)
