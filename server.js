@@ -9,37 +9,48 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //get route test
-// app.get('/api/candidates', (req, res) => {
-//     const sql = `SELECT * FROM candidates`;
+app.get('/api/candidates', (req, res) => {
+    // const sql = `SELECT * FROM candidates`;
+    const sql = `SELECT candidates.*, parties.name 
+             AS party_name 
+             FROM candidates 
+             LEFT JOIN parties 
+             ON candidates.party_id = parties.id`;
 
-//     db.query(sql, (err, rows) => {
-//         if (err) {
-//             res.status(500).json({ error: err.message });
-//             return;
-//         }
-//         res.json({
-//             message: 'success',
-//             data: rows
-//         });
-//     });
-// });
+    db.query(sql, (err, rows) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        res.json({
+            message: 'success',
+            data: rows
+        });
+    });
+});
 
 //Get a single candidate
-// app.get('/api/candidates/:id', (req, res) => {
-//     const sql = `SELECT * FROM candidates WHERE id = ?`;
-//     const params = [req.params.id];
+app.get('/api/candidates/:id', (req, res) => {
+    // const sql = `SELECT * FROM candidates WHERE id = ?`;
+    const sql = `SELECT candidates.*, parties.name 
+             AS party_name 
+             FROM candidates 
+             LEFT JOIN parties 
+             ON candidates.party_id = parties.id 
+             WHERE candidates.id = ?`;
+    const params = [req.params.id];
 
-//     db.query(sql, params, (err, rows) => {
-//         if (err) {
-//             res.status(400).json({ error: err.message });
-//             return;
-//         }
-//         res.json({
-//             message: 'success',
-//             data: rows
-//         });
-//     });
-// });
+    db.query(sql, params, (err, rows) => {
+        if (err) {
+            res.status(400).json({ error: err.message });
+            return;
+        }
+        res.json({
+            message: 'success',
+            data: rows
+        });
+    });
+});
 
 // Delete a candidate
 // app.delete('/api/candidates/:id', (req, res) => {
