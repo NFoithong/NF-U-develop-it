@@ -1,10 +1,11 @@
 DROP TABLE IF EXISTS candidates;
 DROP TABLE IF EXISTS parties;
+drop table if exists voters;
 
-CREATE TABLE parties (
-  id INTEGER AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(50) NOT NULL,
-  description TEXT
+create table parties (
+    id integer auto_increment primary key,
+    name varchar(50) not null,
+    description text
 );
 
 -- CREATE TABLE candidates (
@@ -13,6 +14,13 @@ CREATE TABLE parties (
 --     last_name VARCHAR(30) NOT NULL,
 --     industry_connected BOOLEAN NOT NULL
 -- );
+create table voters (
+    id integer auto_increment primary key,
+    first_name varchar(30) not null,
+    last_name varchar(30) not null,
+    email varchar(50) not null,
+    created_at datetime default current_timestamp
+);
 
 CREATE TABLE candidates (
   id INTEGER AUTO_INCREMENT PRIMARY KEY,
