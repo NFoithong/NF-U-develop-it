@@ -22,6 +22,7 @@ router.get('/votes', (req, res) => {
     });
 });
 
+
 router.post('/vote', ({ body }, res) => {
     // Data validation
     const errors = inputCheck(body, 'voter_id', 'candidate_id');
